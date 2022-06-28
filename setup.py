@@ -1,19 +1,19 @@
 from setuptools import setup
 
 setup(
-    name='chris-plugin-template',
+    name='freesurfer_simplereport',
     version='1.0.0',
-    description='A ChRIS DS plugin template',
+    description='A ChRIS DS plugin that generates a report table (in various formats) off a FreeSurfer annotation/segmentation volume',
     author='FNNDSC',
-    author_email='dev@babyMRI.org',
-    url='https://github.com/FNNDSC/python-chrisapp-template',
-    py_modules=['app'],
+    author_email='rudolph.pienaar@childrens.harvard.edu',
+    url='https://github.com/FNNDSC/pl-freesurfer_simplere',
+    py_modules=['freesurfer_simplereport'],
     install_requires=['chris_plugin'],
     license='MIT',
     python_requires='>=3.8.2',
     entry_points={
         'console_scripts': [
-            'commandname = app:main'
+            'freesurfer_simplereport = freesurfer_simplereport:main'
         ]
     },
     classifiers=[
