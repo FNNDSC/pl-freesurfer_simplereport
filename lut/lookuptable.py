@@ -4,9 +4,11 @@ str_about = '''
     to named structures (as well as their rendering color).
 '''
 
-from pathlib import Path
-import pandas as pd
-import re
+from    pathlib import  Path
+import  pandas  as      pd
+
+import  re
+
 
 class lookuptable:
     '''
@@ -14,9 +16,9 @@ class lookuptable:
     functionality.
     '''
 
-    def log(self, *args):
+    def log(self, *args, **kwargs):
         if self.logger:
-            self.logger(*args)
+            self.logger(*args, **kwargs)
 
     def __init__(self, *args, **kwargs):
         """Constructor
