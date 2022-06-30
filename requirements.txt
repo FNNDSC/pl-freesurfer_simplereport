@@ -1,1 +1,9 @@
-chris_plugin==0.0.17
+chris_plugin==0.1.0
+pandas
+nibabel
+yattag
+pdfkit
+yattag
+fpdf
+pfmisc
+pudb
