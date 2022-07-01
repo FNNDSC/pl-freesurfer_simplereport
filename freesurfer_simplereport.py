@@ -65,7 +65,7 @@ parser.add_argument(
 )
 parser.add_argument(
                         '--internalLUTpath',
-                        default     = '/usr/local/freesurfer',
+                        default     = '/usr/local/src/pl-freesurfer_simplereport',
                         help        = '''
                         A path to a (typically in-container) freesurfer color
                         lookup table.
