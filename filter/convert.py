@@ -50,6 +50,7 @@ class format:
             if 'html' in reporttype.lower():    d_save = self.format_save(outputpath, self.html_generate(), 'html')
             if 'pdf'  in reporttype.lower():    d_save = self.format_save(outputpath, self.pdf_generate(), 'pdf')
             ld_ret.append(d_save)
+        return ld_ret
 
     def fullyQualifiedOuputReportFile_createName(self, outputpath : Path, ext : str) -> Path:
         """Generate a fully qualified output report filename
