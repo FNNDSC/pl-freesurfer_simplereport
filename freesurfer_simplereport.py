@@ -14,13 +14,6 @@ __version__ = __pkg.version
 import os
 from importlib.resources import files
 import sys
-# import nibabel as nib
-# import numpy as np
-#import collections
-# import pandas as pd
-from yattag import Doc
-import pdfkit
-from fpdf import FPDF
 
 import  pfmisc
 from    pfmisc._colors          import Colors
@@ -98,9 +91,12 @@ parser.add_argument('-V', '--version', action='version',
                     version=f'%(prog)s {__version__}')
 
 
-def segmentation_process(options: Namespace, inputfile: Path, outputfile: Path):
+def segmentation_process(options: Namespace, inputfile: Path, outputfile: Path) -> dict:
     """Main entry point for generating a report in various formats based
-    off a FreeSurfer annotation file.
+    off a FreeSurfer annotation file. For each identified annotation volume,
+    read the volume, generate a report template (i.e. a structure that
+    contains the report data), and then convert to the required output
+    format.
 
     Args:
         options (Namespace): The option space, needed to determine report types.
@@ -109,11 +105,15 @@ def segmentation_process(options: Namespace, inputfile: Path, outputfile: Path):
     """
 
     start.LOG(f"Processing {inputfile}...")
-    pudb.set_trace()
-    annot           = fmgzio.mgz(inputfile, log = start.LOG)
-    pudb.set_trace()
-    masterreport    = template.template(mgz = annot, lut = start.LUT, log = start.LOG)
-
+    annot           = fmgzio.mgz(inputfile, log     = start.LOG)
+    masterreport    = template.template(mgz         = annot,
+                                        lut         = start.LUT,
+                                        log         = start.LOG)
+    convertreport   = convert.format(   template    = masterreport,
+                                        format      = options.report_types,
+                                        basename    = options.report_name,
+                                        log         = start.LOG)
+    return convertreport.do(outputfile)
 
 # documentation: https://fnndsc.github.io/chris_plugin/chris_plugin.html#chris_plugin
 @chris_plugin(
@@ -128,12 +128,13 @@ def main(options: Namespace, inputdir: Path, outputdir: Path):
     print(DISPLAY_TITLE, file=sys.stderr)
     print(f'Options: {options}', file=sys.stderr)
 
+    ld_result   : list  = []
     if start.init(options, inputdir, outputdir)['isOK']:
         mapper = PathMapper.file_mapper(inputdir, outputdir,
                             glob    = options.annotation
         )
         for input, output in mapper:
-            segmentation_process(options, input, output)
+            ld_result.append(segmentation_process(options, input, output))
 
 
 if __name__ == '__main__':
