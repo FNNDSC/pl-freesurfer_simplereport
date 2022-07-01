@@ -7,3 +7,4 @@ yattag
 fpdf
 pfmisc
 pudb
+weasyprint
