@@ -10,6 +10,7 @@ LABEL org.opencontainers.image.authors="FNNDSC <rudolph.pienaar@childrens.harvar
 WORKDIR /usr/local/src/pl-freesurfer_simplereport
 
 COPY requirements.txt .
+COPY FreeSurferColorLUT.txt .
 RUN pip install -r requirements.txt
 
 COPY . .
