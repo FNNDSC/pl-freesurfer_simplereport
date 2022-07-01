@@ -5,8 +5,7 @@
 [![ci](https://github.com/FNNDSC/pl-freesurfer_simplereport/actions/workflows/ci.yml/badge.svg)](https://github.com/FNNDSC/pl-freesurfer_simplereport/actions/workflows/ci.yml)
 
 `pl-freesurfer_simplereport` is a [_ChRIS_](https://chrisproject.org/)
-_ds_ plugin which takes in ...  as input files and
-creates ... as output files.
+_ds_ plugin which generates reports off FreeSurfer generated annotation/segmentation volumes that exist in the input file space. These reports can be created in various formats (`txt`, `csv`, `json`, `html`, and `pdf`) and are saved in the output file space.
 
 ## Abstract
 
@@ -37,13 +36,18 @@ singularity exec docker://fnndsc/pl-freesurfer_simplereport freesurfer_simplerep
 ## Examples
 
 `freesurfer_simplereport` requires two positional arguments: a directory containing
-input data, and a directory where to create output data.
-First, create the input directory and move input data into it.
+input data, and a directory where to create output data. Typically, the input
+directory space should contain FreeSurfer annotation volume files (format `mgz`).
+The exact location of these files is unimportant as the plugin will recursively search
+for hits that satisfy the pattern `**/*annot*mgz`. For each hit, a report will be
+generated with a similar tree structure in the output file space. In the simplest case,
+no command line arguments are needed.
 
 ```shell
 mkdir incoming/ outgoing/
-mv some.dat other.dat incoming/
-singularity exec docker://fnndsc/pl-freesurfer_simplereport:latest freesurfer_simplereport [--args] incoming/ outgoing/
+mv FreeSurfer-recon incoming/
+singularity exec docker://fnndsc/pl-freesurfer_simplereport:latest freesurfer_simplereport \
+   incoming/ outgoing/
 ```
 
 ## Development
