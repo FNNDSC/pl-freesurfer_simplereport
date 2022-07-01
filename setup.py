@@ -11,6 +11,7 @@ setup(
     install_requires=['chris_plugin'],
     license='MIT',
     python_requires='>=3.8.2',
+    packages=['init', 'lut', 'mgz', 'report', 'filter'],
     entry_points={
         'console_scripts': [
             'freesurfer_simplereport = freesurfer_simplereport:main'
