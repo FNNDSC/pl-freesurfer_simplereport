@@ -4,12 +4,12 @@
 [![MIT License](https://img.shields.io/github/license/fnndsc/pl-freesurfer_simplereport)](https://github.com/FNNDSC/pl-freesurfer_simplereport/blob/main/LICENSE)
 [![ci](https://github.com/FNNDSC/pl-freesurfer_simplereport/actions/workflows/ci.yml/badge.svg)](https://github.com/FNNDSC/pl-freesurfer_simplereport/actions/workflows/ci.yml)
 
-`pl-freesurfer_simplereport` is a [_ChRIS_](https://chrisproject.org/)
-_ds_ plugin which generates reports off FreeSurfer generated annotation/segmentation volumes that exist in the input file space. These reports can be created in various formats (`txt`, `csv`, `json`, `html`, and `pdf`) and are saved in the output file space.
 
 ## Abstract
 
-...
+`pl-freesurfer_simplereport` is a [_ChRIS_](https://chrisproject.org/)
+_ds_ plugin which generates reports off FreeSurfer generated annotation/segmentation volumes that exist in the input file space. These reports can be created in various formats (`txt`, `csv`, `json`, `html`, and `pdf`) and are saved in the output file space. The plugin can be run safely on an appropriate upstream directory space (i.e. outputs created by FreeSurfer) to generate reports off all `mgz` files that conform to a pattern `*aparc*mgz`.
+
 
 ## Installation
 
@@ -24,13 +24,16 @@ To get started with local command-line usage, use [Apptainer](https://apptainer.
 (a.k.a. Singularity) to run `pl-freesurfer_simplereport` as a container:
 
 ```shell
-singularity exec docker://fnndsc/pl-freesurfer_simplereport freesurfer_simplereport [--args values...] input/ output/
+singularity exec docker://fnndsc/pl-freesurfer_simplereport \
+    freesurfer_simplereport [--args values...]              \
+    input/ output/
 ```
 
 To print its available options, run:
 
 ```shell
-singularity exec docker://fnndsc/pl-freesurfer_simplereport freesurfer_simplereport --help
+singularity exec docker://fnndsc/pl-freesurfer_simplereport \
+    freesurfer_simplereport --help
 ```
 
 ## Examples
@@ -44,10 +47,12 @@ generated with a similar tree structure in the output file space. In the simples
 no command line arguments are needed.
 
 ```shell
-mkdir incoming/ outgoing/
-mv FreeSurfer-recon incoming/
-singularity exec docker://fnndsc/pl-freesurfer_simplereport:latest freesurfer_simplereport \
-   incoming/ outgoing/
+mkdir outgoing/
+# Assume that the directory FreeSurfer-recon contains FreeSurfer generated
+# contents.
+singularity exec docker://fnndsc/pl-freesurfer_simplereport:latest  \
+    freesurfer_simplereport                                         \
+    FreeSurfer-recon/ outgoing/
 ```
 
 ## Development
@@ -68,7 +73,8 @@ Run [`chris_plugin_info`](https://github.com/FNNDSC/chris_plugin#usage)
 to produce a JSON description of this plugin, which can be uploaded to a _ChRIS Store_.
 
 ```shell
-docker run --rm localhost/fnndsc/pl-freesurfer_simplereport chris_plugin_info > chris_plugin_info.json
+docker run --rm localhost/fnndsc/pl-freesurfer_simplereport \
+    chris_plugin_info > chris_plugin_info.json
 ```
 
 ### Local Test Run
