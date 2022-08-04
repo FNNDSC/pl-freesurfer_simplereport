@@ -32,7 +32,7 @@ def test_main(tmp_path: Path):
     for ifile in inputfiles:
         ifile.touch()
 
-    options     = parser.parse_args(['--verbosity', '1'])
+    options     = parser.parse_args(['--verbosity', '1', '--internalLUTpath', ''])
     # pudb.set_trace()
     # This doesn't really test much of anything.
     # main(options, inputdir, outputdir)
