@@ -3,7 +3,7 @@
 #
 # - automatically run pytest
 # - on push to main, build and push container images as ":latest"
-# - on release, build and push container image with tag and
+# - on tag, build and push container image with tag and
 #   upload plugin description to https://chrisstore.co
 
 name: build
@@ -52,7 +52,7 @@ jobs:
   build:
     name: Build
     # needs: [ test ]  # tests must pass before build
-    if: github.event_name == 'push' || github.event_name == 'release'
+    if: github.event_name == 'push'
     runs-on: ubuntu-20.04
 
     # A local registry helps us reuse the built image between steps
@@ -152,7 +152,7 @@ jobs:
           repository: ${{ steps.determine.outputs.repo }}
 
       - name: Upload to ChRIS Store
-        if: github.event_name == 'release'
+        if: "!endsWith(steps.determine.outputs.dock_image, ':latest')"
         uses: FNNDSC/chrisstore-action@master
         with:
           descriptor_file: /tmp/description.json
