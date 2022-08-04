@@ -120,7 +120,7 @@ def segmentation_process(options: Namespace, inputfile: Path, outputfile: Path) 
     parser              = parser,
     title               = 'FreeSurfer Simple Reporting',
     category            = '',                   # ref. https://chrisstore.co/plugins
-    min_memory_limit    = '100Mi',              # supported units: Mi, Gi
+    min_memory_limit    = '8Gi',                # supported units: Mi, Gi
     min_cpu_limit       = '1000m',              # millicores, e.g. "1000m" = 1 CPU core
     min_gpu_limit       = 0                     # set min_gpu_limit=1 to enable GPU
 )
