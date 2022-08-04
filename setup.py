@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='freesurfer_simplereport',
-    version='1.1.6',
+    version='1.1.8',
     description='A ChRIS DS plugin that generates a report table (in various formats) off a FreeSurfer annotation/segmentation volume',
     author='FNNDSC',
     author_email='rudolph.pienaar@childrens.harvard.edu',

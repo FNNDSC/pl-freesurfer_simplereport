@@ -6,11 +6,11 @@ from freesurfer_simplereport import parser, main, DISPLAY_TITLE
 
 str_notes = '''
 
-    Some tests for diff_unpack.py. Note, if you want to debug tests
-    with `pudb`, make sure to
+    Some trivial test. Note, be sure to run tests with
 
         pytest -s
 
+    (this is also pudb.set_trace() safe)
 '''
 
 def test_main(tmp_path: Path):
@@ -22,8 +22,18 @@ def test_main(tmp_path: Path):
     inputdir.mkdir()
     outputdir.mkdir()
 
-    options     = parser.parse_args(['--verbosity', '1'])
+    inputfiles = {
+        inputdir / 'FreeSurferColorLUT.txt',
+        inputdir / 'file1.aparc.mgz',
+        inputdir / 'file2.aparc.mgz',
+        inputdir / 'file3.aparc.mgz'
+    }
 
+    for ifile in inputfiles:
+        ifile.touch()
+
+    options     = parser.parse_args(['--verbosity', '1'])
+    # pudb.set_trace()
     # This doesn't really test much of anything.
     main(options, inputdir, outputdir)
 
