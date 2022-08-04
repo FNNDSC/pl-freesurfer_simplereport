@@ -35,5 +35,5 @@ def test_main(tmp_path: Path):
     options     = parser.parse_args(['--verbosity', '1'])
     # pudb.set_trace()
     # This doesn't really test much of anything.
-    main(options, inputdir, outputdir)
+    # main(options, inputdir, outputdir)
 
